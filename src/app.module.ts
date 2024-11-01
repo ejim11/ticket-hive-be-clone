@@ -41,10 +41,13 @@ const ENV = process.env.NODE_ENV;
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
+        console.log(+configService.get('database.port'));
+        console.log(configService.get('database.user'));
         return {
           type: 'postgres',
           autoLoadEntities: configService.get('database.autoLoadEntities'),
-          synchronize: configService.get('database.synchronize'),
+          // synchronize: configService.get('database.synchronize'),
+          synchronize: false,
           port: +configService.get('database.port'),
           username: configService.get('database.user'),
           password: configService.get('database.password'),
