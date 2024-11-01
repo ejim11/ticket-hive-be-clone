@@ -1,0 +1,146 @@
+# POST http://localhost:3001/events
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU4LCJlbWFpbCI6ImZlamltMTg4QGdtYWlsLmNvbSIsInJvbGUiOiJ0aWNrZXRQdXJjaGFzZXIiLCJpYXQiOjE3Mjg5NzkyOTUsImV4cCI6MTcyODk4Mjg5NSwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.uYjfbZZl7j1DeAiuENGfeTdnbEkU3imcaTOg4qPkTXs
+
+// {
+//     "name": "Burna show",
+//     "category": "music",
+//     "description": "This is starboys show",
+//     "venue": "Eko Hotel",
+//     "address": "Lagos Island",
+//     "eventStartDateAndTime": "Oct 14, 2024",
+//     "tickets": [
+//         {
+//             "type": "general",
+//             "price": 3000,
+//             "summary": "This is the general ticket"
+//         },
+//         {
+//             "type": "general",
+//             "price": 3000,
+//             "summary": "This is the general ticket"
+//         },
+//         {
+//             "type": "vip",
+//             "price": 30000,
+//             "summary": "This is the vip ticket"
+//         },
+//         {
+//             "type": "vip",
+//             "price": 30000,
+//             "summary": "This is the vip ticket"
+//         }
+//     ]
+// }
+
+
+POST http://localhost:3001/api/v1/events
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjg1LCJlbWFpbCI6ImZlamltMTg4QGdtYWlsLmNvbSIsInJvbGUiOiJldmVudE9yZ2FuaXNlciIsImlhdCI6MTczMDM2MTE0MiwiZXhwIjoxNzMwMzY0NzQyLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMSIsImlzcyI6ImxvY2FsaG9zdDozMDAxIn0.PQA6AVmBwJBMd4M-Z5BEAfnpAlXbVU-DKytzxTkbI9M
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Qrest conference
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category"
+
+conference
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="priceType"
+
+free
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="attendanceMode"
+
+online
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Life is art
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="venue"
+
+Eko Hotel
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="address"
+
+Lagos Island
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="eventStartDate"
+
+Nov 3, 2024
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="eventStartTime"
+
+07:00
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="eventEndTime"
+
+10:00
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[0][type]"
+
+general
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[0][price]"
+
+0
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[0][summary]"
+
+This is the general ticket
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[1][type]"
+
+general
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[1][price]"
+
+0
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[1][summary]"
+
+This is the general ticket
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[2][type]"
+
+vip
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[2][price]"
+
+3000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[2][summary]"
+
+This is the vip ticket
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[3][type]"
+
+vip
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[3][price]"
+
+3000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[3][summary]"
+
+This is the vip ticket
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[4][type]"
+
+vip
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[4][price]"
+
+3000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tickets[4][summary]"
+
+This is the vip ticket
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="test-image.png"
+Content-Type: image/png
+
+< ./test-image.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/v1/paystack/initialize-payment
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc5LCJlbWFpbCI6ImZlamltMTg4QGdtYWlsLmNvbSIsInJvbGUiOiJ0aWNrZXRQdXJjaGFzZXIiLCJpYXQiOjE3MzAzMjk1ODksImV4cCI6MTczMDMzMzE4OSwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.3jOEQSZA9R0_RQXUP9hH5ZRPGOchXAA-h2zq05-y3Jk
+
+{
+    "eventId": 31,
+    "ticketTypes": [{"quantity": 1, "ticket": { "type": "vip"} }]
+}

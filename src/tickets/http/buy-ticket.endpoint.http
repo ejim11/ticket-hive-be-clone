@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/v1/tickets/buy-ticket
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc5LCJlbWFpbCI6ImZlamltMTg4QGdtYWlsLmNvbSIsInJvbGUiOiJ0aWNrZXRQdXJjaGFzZXIiLCJpYXQiOjE3MzAyNjE3MjEsImV4cCI6MTczMDI2NTMyMSwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.p7CRa1hclHAUyaEJPcD6zwsHRZuoOiEPCaUI33ENPt0
+{
+    "eventId": 16,
+    "ticketType": "general"
+}

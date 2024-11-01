@@ -1,0 +1,6 @@
+POST http://localhost:3001/subscribers
+Content-Type: application/json
+
+{
+    "email": "fejim188@gmail.com"
+}

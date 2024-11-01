@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        max-width: 600px;
+        width: 100%;
+        border-radius: 10px;
+        background-color: white;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        width: 100%;
+        padding: 20px;
+        background-color: #f1f3f5;
+        display: block;
+      "
+    >
+      <div class="container">
+        <div
+          style="padding: 10px; border-bottom: 1px solid #f1f3f5; width: 100%"
+        >
+          <img
+            src="https://i.ibb.co/yN5hBCt/logo.png"
+            alt="logo-image"
+            width="85"
+            height="45"
+          />
+        </div>
+        <div
+          style="
+            font-family: Arial, sans-serif;
+            padding: 15px 10px;
+            color: #333333;
+            font-size: 16px;
+          "
+        >
+          <h1 style="color: #333; font-size: 28px">You're In! 🎟️</h1>
+          <p style="font-size: 16px; line-height: 1.5">
+            Thank you for subscribing to Ticket Hive’s newsletter! You'll now be
+            the first to know about:
+          </p>
+          <ul
+            style="
+              list-style: none;
+              padding: 10px;
+              font-size: 16px;
+              background-color: #ced4da;
+              border-radius: 10px;
+            "
+          >
+            <li style="padding: 10px 0">🎫 Exclusive event updates</li>
+            <li style="padding: 10px 0">💥 Early bird discounts</li>
+            <li style="padding: 10px 0">📢 Upcoming shows near you</li>
+          </ul>
+          <p style="font-size: 16px; margin-top: 15px">
+            Stay tuned for some exciting updates coming your way!
+          </p>
+          <div style="display: flex; align-items: center">
+            <p style="margin-right: 10px">
+              If you want to stop recieving mails
+            </p>
+            <p>
+              <a
+                href="http://localhost:3001/subscribers/<%= id %>"
+                style="text-decoration: none; color: rgba(131, 66, 255, 1)"
+                >Unsubscribe</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+GET http://localhost:3001/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU4LCJpYXQiOjE3MjkyNjU4OTIsImV4cCI6MTcyOTI2OTQ5MiwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.H5YeRPHb9aouoHoQ6f3Ozb9bQu-tIwtSHosLv5plfIE
+
+
+GET http://localhost:3001/users/58
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU4LCJpYXQiOjE3MjkyNjU4OTIsImV4cCI6MTcyOTI2OTQ5MiwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.H5YeRPHb9aouoHoQ6f3Ozb9bQu-tIwtSHosLv5plfIE

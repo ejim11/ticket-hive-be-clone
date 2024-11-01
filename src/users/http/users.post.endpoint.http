@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/v1/users
+Content-Type: application/json
+
+{
+    "firstName": "Kelechi",
+    "lastName": "Agnes",
+    "email": "fejim188@gmail.com",
+    "password": "@Password1",
+    "accountType": "eventOrganiser",
+    "role": "eventOrganiser"
+}

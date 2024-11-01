@@ -1,0 +1,5 @@
+DELETE http://localhost:3001/events
+    ?id=9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU4LCJlbWFpbCI6ImZlamltMTg4QGdtYWlsLmNvbSIsInJvbGUiOiJ0aWNrZXRQdXJjaGFzZXIiLCJpYXQiOjE3Mjg5NzkyOTUsImV4cCI6MTcyODk4Mjg5NSwiYXVkIjoibG9jYWxob3N0OjMwMDEiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMSJ9.uYjfbZZl7j1DeAiuENGfeTdnbEkU3imcaTOg4qPkTXs
+
