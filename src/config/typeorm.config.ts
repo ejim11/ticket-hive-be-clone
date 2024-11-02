@@ -6,6 +6,8 @@ config();
 
 // const configService = new ConfigService();
 
+console.log(+process.env.DATABASE_PORT);
+
 export default new DataSource({
   type: 'postgres',
   port: +process.env.DATABASE_PORT,
