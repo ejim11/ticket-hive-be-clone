@@ -6,8 +6,6 @@ config();
 
 const configService = new ConfigService();
 
-console.log('fire');
-
 export default new DataSource({
   type: 'postgres',
   port: +configService.get('database.port'),
