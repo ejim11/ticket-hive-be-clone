@@ -41,8 +41,6 @@ const ENV = process.env.NODE_ENV;
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        console.log(+configService.get('database.port'));
-        console.log(configService.get('database.user'));
         return {
           type: 'postgres',
           autoLoadEntities: configService.get('database.autoLoadEntities'),
@@ -53,6 +51,20 @@ const ENV = process.env.NODE_ENV;
           password: configService.get('database.password'),
           host: configService.get('database.host'),
           database: configService.get('database.name'),
+          // ssl:
+          //   process.env.NODE_ENV === 'development'
+          //     ? false
+          //     : {
+          //         rejectUnauthorized: false,
+          //       },
+          // logging: process.env.NODE_ENV !== 'production',
+          // retryAttempts: 5,
+          // retryDelay: 3000,
+          // extra: {
+          //   max: 20,
+          //   idleTimeoutMillis: 30000,
+          //   connectionTimeoutMillis: 2000,
+          // },
         };
       },
     }),
