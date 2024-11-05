@@ -147,7 +147,7 @@ export class CreateEventDto {
   })
   @IsOptional()
   @IsDate()
-  eventEndDate?: string;
+  eventEndDate?: Date;
 
   /**
    * start time of event
