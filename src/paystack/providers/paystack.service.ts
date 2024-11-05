@@ -101,46 +101,100 @@ export class PaystackService {
       const { buyer, tickets, totalAmount, eventName } =
         await this.ticketsService.getTickets(queryRunner, paymentDto, user);
 
-      const response = await axios.post(
-        `${this.paystackConfiguration.baseUrl}/transaction/initialize`,
-        {
-          email: buyer.email,
-          metadata: {
-            tickets: tickets,
-            user: buyer,
-            eventName,
+      let response;
+
+      if (totalAmount > 0) {
+        try {
+          response = await axios.post(
+            `${this.paystackConfiguration.baseUrl}/transaction/initialize`,
+            {
+              email: buyer.email,
+              metadata: {
+                tickets: tickets,
+                user: buyer,
+                eventName,
+                totalAmount,
+              },
+              amount: totalAmount * 100,
+              callback_url: `${this.configService.get('appConfig.host')}/events/${paymentDto.eventId}/get-ticket?bought=yes`,
+            }, // Paystack accepts amounts in kobo
+            { headers: this.getAuthHeader() },
+          );
+
+          // Create payment record
+          await queryRunner.manager.save(Payment, {
+            userId: buyer.id,
+            eventId: paymentDto.eventId,
+            amount: totalAmount,
+            provider: 'paystack',
+            providerReference: response.data.data.reference,
+            status: paymentStatus.PENDING,
+            authorizationUrl: response.data.data.authorization_url,
+            tickets,
+          });
+
+          // Update tickets status to locked
+          await this.ticketsService.updateTicketsStatus(
+            queryRunner.manager,
+            tickets.map((ticket) => ticket.id),
+            TicketStatus.LOCKED,
+          );
+        } catch (error) {
+          throw new ConflictException(error);
+        }
+      } else {
+        // Update tickets to sold
+        await this.ticketsService.updateTicketsStatus(
+          queryRunner.manager,
+          tickets.map((t) => t.id),
+          TicketStatus.SOLD,
+          buyer,
+        );
+
+        console.log('creating pdfs...');
+
+        const pdfs = await Promise.all(
+          tickets.map(
+            async (ticket) =>
+              await this.ticketsService.generateTicketPdf(
+                String(ticket.id),
+                ticket.type,
+                eventName,
+                ticket.price,
+              ),
+          ),
+        );
+
+        const urls = await Promise.all(
+          pdfs.map(
+            async (pdf, i: number) =>
+              await this.uploadsService.uploadTicketFile(
+                pdf,
+                String(tickets[i].id),
+              ),
+          ),
+        );
+
+        try {
+          await this.mailService.sendTicketBuyerMail(
+            buyer,
             totalAmount,
-          },
-          amount: totalAmount * 100,
-          callback_url: `${this.configService.get('appConfig.host')}/events/${paymentDto.eventId}/get-ticket?bought=yes`,
-        }, // Paystack accepts amounts in kobo
-        { headers: this.getAuthHeader() },
-      );
-
-      // Create payment record
-      await queryRunner.manager.save(Payment, {
-        userId: buyer.id,
-        eventId: paymentDto.eventId,
-        amount: totalAmount,
-        provider: 'paystack',
-        providerReference: response.data.data.reference,
-        status: paymentStatus.PENDING,
-        authorizationUrl: response.data.data.authorization_url,
-        tickets,
-      });
-
-      // Update tickets status to locked
-      await this.ticketsService.updateTicketsStatus(
-        queryRunner.manager,
-        tickets.map((ticket) => ticket.id),
-        TicketStatus.LOCKED,
-      );
+            eventName,
+            tickets,
+            urls,
+          );
+        } catch (err) {
+          throw new ConflictException(err);
+        }
+      }
 
       // if successful commit
       // ensures the txn is committed to the db
       await queryRunner.commitTransaction();
 
-      return response.data;
+      return response
+        ? response.data
+        : { message: 'Tickets bought successfully' };
     } catch (error) {
       // we rollback the txn here if it is not successful
       await queryRunner.rollbackTransaction();
