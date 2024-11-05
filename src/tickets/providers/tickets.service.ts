@@ -59,7 +59,7 @@ export class TicketsService {
     entityManager: EntityManager,
     ticketIds: number[],
     status: TicketStatus,
-    user?: User,
+    user?: Partial<User>,
   ) {
     const setData = user
       ? { ticketStatus: status, owner: user }
