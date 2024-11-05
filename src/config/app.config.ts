@@ -12,7 +12,7 @@ export default registerAs('appConfig', () => ({
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
   host:
-    process.env.NODE_ENV === 'developement'
+    process.env.NODE_ENV === 'development'
       ? process.env.LOCAL_HOST
       : process.env.PROD_HOST,
 }));
