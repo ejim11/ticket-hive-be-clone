@@ -112,7 +112,7 @@ export class PaystackService {
             totalAmount,
           },
           amount: totalAmount * 100,
-          callback_url: `${this.configService.get('app.host')}/events/${paymentDto.eventId}/get-ticket?bought=yes`,
+          callback_url: `${this.configService.get('appConfig.host')}/events/${paymentDto.eventId}/get-ticket?bought=yes`,
         }, // Paystack accepts amounts in kobo
         { headers: this.getAuthHeader() },
       );
