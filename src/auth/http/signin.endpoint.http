@@ -1,7 +1,11 @@
-POST http://localhost:3001/api/v1/auth/sign-in
+#  https://ticket-hive-be-clone.onrender.com/api/v1/auth/sign-in
+# http://localhost:3001/api/v1/auth/sign-in
+
+POST https://ticket-hive-be-clone.onrender.com/api/v1/auth/sign-in
 Content-Type: application/json
 
 {
 "email": "fejim188@gmail.com",
-"password": "ejimfavour@1"
+"password": "grandmaster@2"
+// "password": "ejimfavour@1"
 }
