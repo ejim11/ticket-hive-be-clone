@@ -83,7 +83,7 @@ export class MailService {
    * @param eventName
    */
   public async sendTicketBuyerMail(
-    user: User,
+    user: Partial<User>,
     totalAmount: any,
     eventName: string,
     tickets: any,
