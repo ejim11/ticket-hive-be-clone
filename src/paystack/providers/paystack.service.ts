@@ -12,7 +12,6 @@ import axios from 'axios';
 import * as crypto from 'crypto';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { TicketsService } from 'src/tickets/providers/tickets.service';
-import { PaymentDto } from '../dtos/payment.dto';
 import { MailService } from 'src/mail/providers/mail.service';
 import { UploadsService } from 'src/uploads/providers/uploads.service';
 import { DataSource } from 'typeorm';
@@ -113,7 +112,7 @@ export class PaystackService {
             totalAmount,
           },
           amount: totalAmount * 100,
-          callback_url: `http://localhost:3000/events/${paymentDto.eventId}/get-ticket?bought=yes`,
+          callback_url: `${this.configService.get('app.host')}/events/${paymentDto.eventId}/get-ticket?bought=yes`,
         }, // Paystack accepts amounts in kobo
         { headers: this.getAuthHeader() },
       );
