@@ -1,12 +1,9 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { TicketsService } from './providers/tickets.service';
-import { ActiveUser } from 'src/auth/decorator/active-user.decorator';
-import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+
 import { Roles } from 'src/auth/decorator/role.decorator';
 import { Role } from 'src/auth/enums/role-type.enum';
-import { PatchTicketDto } from './dtos/patch-ticket.dto';
 import {
-  ApiBody,
   ApiHeaders,
   ApiOperation,
   ApiResponse,
@@ -29,4 +26,29 @@ export class TicketsController {
      */
     private readonly ticketsService: TicketsService,
   ) {}
+
+  @ApiOperation({
+    summary: 'It finds all tickets made by a user ',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'All tickets made by a user are fetched and paginated',
+  })
+  @ApiHeaders([
+    {
+      name: 'Authorization',
+      required: true,
+      description: 'Bearer token for authorization',
+    },
+    {
+      name: 'X-Custom-Header',
+      required: false,
+      description: 'A custom optional header',
+    },
+  ])
+  @Get('get-creator-tickets')
+  @Roles(Role.EVENTORGANISER)
+  public getTicketsFromOwner(@Req() req: any) {
+    return this.ticketsService.getOwnerTickets(req.user.sub);
+  }
 }

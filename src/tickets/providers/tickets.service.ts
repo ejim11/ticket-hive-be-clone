@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { BuyTicketProvider } from './buy-ticket.provider';
 import { User } from 'src/users/user.entity';
 import { UpdateBoughtTicketProvider } from './update-bought-ticket.provider';
 import { GenerateTicketPdfProvider } from './generate-ticket-pdf.provider';
 import { PaymentDto } from '@/paystack/dtos/payment.dto';
-import { EntityManager, QueryRunner } from 'typeorm';
+import { EntityManager, QueryRunner, Repository } from 'typeorm';
 import { TicketStatus } from '../enums/ticket-status.enum';
 import { Ticket } from '../ticket.entity';
+import { EventsService } from '@/events/providers/events.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationProvider } from '@/common/pagination/providers/pagination.provider';
 
 /**
  * service class for the tickets module
@@ -33,6 +36,22 @@ export class TicketsService {
      * injecting the generate ticket pdf
      */
     private readonly generateTicketPdfProvider: GenerateTicketPdfProvider,
+
+    /**
+     * injecting the events service
+     */
+    private readonly eventsService: EventsService,
+
+    /**
+     * injecting tickets repository
+     */
+    @InjectRepository(Ticket)
+    private readonly ticketsRepository: Repository<Ticket>,
+
+    /**
+     * injecting pagination pprovider
+     */
+    private readonly paginationprovider: PaginationProvider,
   ) {}
 
   /**
@@ -103,5 +122,62 @@ export class TicketsService {
       eventName,
       amount,
     });
+  }
+
+  public async getOwnerTickets(userId: number) {
+    // find all events for owner
+    const events = await this.eventsService.findAllEventsByUserId(userId);
+
+    // extract all tickets
+    const eventsId = events.map((event) => ({
+      id: event.id,
+    }));
+
+    try {
+      const tickets = await this.paginationprovider.paginationQuery(
+        {
+          limit: 100,
+          page: 1,
+        },
+        this.ticketsRepository,
+        {
+          relations: ['event', 'owner'],
+          select: {
+            event: {
+              name: true,
+            },
+            owner: {
+              email: true,
+            },
+          },
+          where: {
+            event: eventsId,
+          },
+        },
+      );
+
+      const formattedTickets = tickets.data.map((tic) => {
+        const owner = tic.owner ? tic.owner.email : null;
+        return {
+          id: tic.id,
+          type: tic.type,
+          price: tic.price,
+          summary: tic.summary,
+          createdAt: tic.createdAt,
+          updatedAt: tic.updatedAt,
+          ticketStatus: tic.ticketStatus,
+          event: { name: tic.event.name },
+          owner: { email: owner },
+        };
+      });
+
+      return {
+        data: formattedTickets,
+        metadata: tickets.meta,
+        links: tickets.links,
+      };
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
   }
 }

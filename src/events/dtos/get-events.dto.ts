@@ -1,4 +1,4 @@
-import { IsDate, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsInt, IsOptional, IsString } from 'class-validator';
 import { IntersectionType } from '@nestjs/swagger';
 import { PaginationQueryDto } from 'src/common/pagination/dtos/pagination-query.dto';
 
@@ -54,6 +54,13 @@ class GetEventsBaseDto {
   @IsString()
   @IsOptional()
   attendance?: string;
+
+  /**
+   * owner id
+   */
+  @IsInt()
+  @IsOptional()
+  owner?: number;
 }
 
 /**

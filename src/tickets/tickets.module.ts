@@ -8,9 +8,15 @@ import { UsersModule } from 'src/users/users.module';
 import { EventsModule } from 'src/events/events.module';
 import { UpdateBoughtTicketProvider } from './providers/update-bought-ticket.provider';
 import { GenerateTicketPdfProvider } from './providers/generate-ticket-pdf.provider';
+import { PaginationModule } from '@/common/pagination/pagination.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Ticket]), UsersModule, EventsModule],
+  imports: [
+    TypeOrmModule.forFeature([Ticket]),
+    UsersModule,
+    EventsModule,
+    PaginationModule,
+  ],
   providers: [
     BuyTicketProvider,
     TicketsService,

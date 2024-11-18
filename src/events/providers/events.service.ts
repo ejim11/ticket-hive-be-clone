@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   NotFoundException,
   RequestTimeoutException,
@@ -140,6 +141,7 @@ export class EventsService {
             name: eventQuery['name']
               ? eventQuery['name'].slice().split('-').join(' ')
               : null,
+            owner: eventQuery['owner'] ? { id: eventQuery['owner'] } : null,
           },
         ];
       } else {
@@ -157,6 +159,7 @@ export class EventsService {
           name: eventQuery['name']
             ? eventQuery['name'].slice().split('-').join(' ')
             : null,
+          owner: eventQuery['owner'] ? { id: eventQuery['owner'] } : null,
         }));
       }
     });
@@ -167,6 +170,7 @@ export class EventsService {
       relations: ['owner'],
       select: {
         owner: {
+          id: true,
           firstName: true,
           lastName: true,
           email: true,
@@ -210,6 +214,27 @@ export class EventsService {
       return event;
     } catch (error) {
       throw new RequestTimeoutException(error);
+    }
+  }
+
+  /**
+   * finds all events by ownerId
+   * @param userId
+   * @returns events
+   */
+  public async findAllEventsByUserId(userId: number) {
+    try {
+      const events = await this.eventsRepository.find({
+        where: {
+          owner: {
+            id: userId,
+          },
+        },
+      });
+
+      return events;
+    } catch (error) {
+      throw new ConflictException(error);
     }
   }
 }
