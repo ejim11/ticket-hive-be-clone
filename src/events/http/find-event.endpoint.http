@@ -1,2 +1,2 @@
-GET http://localhost:3001/api/v1/events?
+GET http://localhost:3001/api/v1/events?owner=86&month=october
 Content-Type: application/json

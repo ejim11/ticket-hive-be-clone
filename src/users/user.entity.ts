@@ -70,8 +70,6 @@ export class User {
   })
   resetOtpExpire?: Date;
 
-  @OneToMany(() => Event, (event) => event.owner, {
-    eager: true,
-  })
+  @OneToMany(() => Event, (event) => event.owner)
   events: Event[];
 }

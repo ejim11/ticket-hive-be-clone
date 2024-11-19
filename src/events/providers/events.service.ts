@@ -14,6 +14,7 @@ import { GetEventsDto } from '../dtos/get-events.dto';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 import { getDateRanges } from '@root/utils/getDateRanges';
+import getMonthDateRange from '@root/utils/getMonthRanges';
 
 /**
  * service provider for the event module
@@ -111,6 +112,9 @@ export class EventsService {
       next30days: Between(next30DaysStart, next30DaysEnd),
     };
 
+    const monthRange =
+      eventQuery['month'] && getMonthDateRange(eventQuery['month']);
+
     Object.keys(eventQuery).forEach((key) => {
       if (key === 'limit' || key === 'page' || !eventQuery[key]) {
         return;
@@ -142,6 +146,9 @@ export class EventsService {
               ? eventQuery['name'].slice().split('-').join(' ')
               : null,
             owner: eventQuery['owner'] ? { id: eventQuery['owner'] } : null,
+            createdAt: monthRange
+              ? Between(monthRange.start, monthRange.end)
+              : null,
           },
         ];
       } else {
@@ -160,6 +167,9 @@ export class EventsService {
             ? eventQuery['name'].slice().split('-').join(' ')
             : null,
           owner: eventQuery['owner'] ? { id: eventQuery['owner'] } : null,
+          createdAt: monthRange
+            ? Between(monthRange.start, monthRange.end)
+            : null,
         }));
       }
     });
@@ -193,7 +203,6 @@ export class EventsService {
     } catch (error) {
       throw new NotFoundException(error);
     }
-    return;
   }
 
   /**

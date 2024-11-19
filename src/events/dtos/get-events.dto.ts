@@ -61,6 +61,13 @@ class GetEventsBaseDto {
   @IsInt()
   @IsOptional()
   owner?: number;
+
+  /**
+   * month
+   */
+  @IsString()
+  @IsOptional()
+  month?: string;
 }
 
 /**

@@ -5,12 +5,14 @@ import { User } from 'src/users/user.entity';
 import { UpdateBoughtTicketProvider } from './update-bought-ticket.provider';
 import { GenerateTicketPdfProvider } from './generate-ticket-pdf.provider';
 import { PaymentDto } from '@/paystack/dtos/payment.dto';
-import { EntityManager, QueryRunner, Repository } from 'typeorm';
+import { Between, EntityManager, QueryRunner, Repository } from 'typeorm';
 import { TicketStatus } from '../enums/ticket-status.enum';
 import { Ticket } from '../ticket.entity';
 import { EventsService } from '@/events/providers/events.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationProvider } from '@/common/pagination/providers/pagination.provider';
+import { GetTicketDto } from '../dtos/get-tickets.dto';
+import getMonthDateRange from '@root/utils/getMonthRanges';
 
 /**
  * service class for the tickets module
@@ -124,7 +126,7 @@ export class TicketsService {
     });
   }
 
-  public async getOwnerTickets(userId: number) {
+  public async getOwnerTickets(userId: number, ticketQuery: GetTicketDto) {
     // find all events for owner
     const events = await this.eventsService.findAllEventsByUserId(userId);
 
@@ -132,6 +134,9 @@ export class TicketsService {
     const eventsId = events.map((event) => ({
       id: event.id,
     }));
+
+    const monthRange =
+      ticketQuery['month'] && getMonthDateRange(ticketQuery['month']);
 
     try {
       const tickets = await this.paginationprovider.paginationQuery(
@@ -152,6 +157,9 @@ export class TicketsService {
           },
           where: {
             event: eventsId,
+            createdAt: monthRange
+              ? Between(monthRange.start, monthRange.end)
+              : null,
           },
         },
       );

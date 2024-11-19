@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import { TicketsService } from './providers/tickets.service';
 
 import { Roles } from 'src/auth/decorator/role.decorator';
@@ -9,6 +9,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { GetTicketDto } from './dtos/get-tickets.dto';
 
 /**
  * controller class for the ticket route
@@ -27,6 +28,11 @@ export class TicketsController {
     private readonly ticketsService: TicketsService,
   ) {}
 
+  /**
+   * function for getting tickets created by event organiser
+   * @param req
+   * @returns tickets created  by event organiser
+   */
   @ApiOperation({
     summary: 'It finds all tickets made by a user ',
   })
@@ -48,7 +54,10 @@ export class TicketsController {
   ])
   @Get('get-creator-tickets')
   @Roles(Role.EVENTORGANISER)
-  public getTicketsFromOwner(@Req() req: any) {
-    return this.ticketsService.getOwnerTickets(req.user.sub);
+  public getTicketsFromOwner(
+    @Req() req: any,
+    @Query() ticketQuery: GetTicketDto,
+  ) {
+    return this.ticketsService.getOwnerTickets(req.user.sub, ticketQuery);
   }
 }
