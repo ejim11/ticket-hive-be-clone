@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        max-width: 600px;
+        width: 100%;
+        border-radius: 10px;
+        background-color: white;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        width: 100%;
+        padding: 20px;
+        background-color: #f1f3f5;
+        display: block;
+      "
+    >
+      <div class="container">
+        <div
+          style="padding: 10px; border-bottom: 1px solid #f1f3f5; width: 100%"
+        >
+          <img
+            src="https://i.ibb.co/yN5hBCt/logo.png"
+            alt="logo-image"
+            width="85"
+            height="45"
+          />
+        </div>
+        <div
+          style="
+            font-family: Arial, sans-serif;
+            padding: 15px 10px;
+            color: #333333;
+            font-size: 16px;
+          "
+        >
+          <p>Hi <%= firstName%>,</p>
+
+          <p style="font-size: 16px; line-height: 1.5">
+            You have successfully created an event
+          </p>
+          <p>🎫 Details:</p>
+          <ul
+            style="
+              list-style: none;
+              padding: 10px;
+              font-size: 16px;
+              background-color: #ced4da;
+              border-radius: 10px;
+            "
+          >
+            <li style="padding: 10px 0">📅 Event: <%= event %></li>
+            <li style="padding: 10px 0">
+              💰 Ticket quantity: <%= tickets %> tickets
+            </li>
+            <li style="padding: 10px 0">
+              🕒 Date Created: <%= dateOfPurchase %>
+            </li>
+          </ul>
+
+          <div style="margin-top: 30px">
+            <p style="line-height: 0px">Best regards,</p>
+            <p>The Ticket Hive Team 🐝</p>
+            <p tyle="line-height: 0px">[Ticket Hive]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

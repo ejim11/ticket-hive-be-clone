@@ -10,6 +10,7 @@ export default registerAs('appConfig', () => ({
   awsRegion: process.env.AWS_REGION,
   awsCloudFrontUrl: process.env.AWS_CLOUDFRONT_URL,
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  awsFromEmail: process.env.AWS_FROM_EMAIL,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
   host:
     process.env.NODE_ENV === 'development'

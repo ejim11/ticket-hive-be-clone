@@ -141,7 +141,7 @@ export class TicketsService {
     try {
       const tickets = await this.paginationprovider.paginationQuery(
         {
-          limit: 100,
+          limit: 0,
           page: 1,
         },
         this.ticketsRepository,

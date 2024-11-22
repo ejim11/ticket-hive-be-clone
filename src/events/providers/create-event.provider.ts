@@ -10,6 +10,7 @@ import { UsersService } from 'src/users/providers/users.service';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { Ticket } from 'src/tickets/ticket.entity';
 import { UploadsService } from 'src/uploads/providers/uploads.service';
+import { MailService } from '@/mail/providers/mail.service';
 
 /**
  * provider for creating an event
@@ -37,6 +38,11 @@ export class CreateEventProvider {
      * injecting the uploads service
      */
     private readonly uploadsService: UploadsService,
+
+    /**
+     * injecting the mail service
+     */
+    private readonly mailService: MailService,
   ) {}
 
   /**
@@ -93,9 +99,20 @@ export class CreateEventProvider {
         const ticketResult = await queryRunner.manager.save(newTicket);
         newTickets.push(ticketResult);
       }
+
+      try {
+        await this.mailService.sendCreatedEventMail(
+          eventResult.owner,
+          eventResult.name,
+          eventResult.tickets.length,
+        );
+      } catch (err) {
+        throw new ConflictException(err);
+      }
       // if successful commit
       // ensures the txn is committed to the db
       await queryRunner.commitTransaction();
+
       return { event: eventResult };
     } catch (error) {
       // if unsuccessful rollback

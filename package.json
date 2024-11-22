@@ -26,6 +26,7 @@
     "typeorm:migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.config.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.696.0",
     "@compodoc/compodoc": "^1.1.25",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/common": "^10.0.0",

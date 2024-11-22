@@ -10,7 +10,7 @@ export class PaginationQueryDto {
    */
   @IsOptional()
   @IsPositive()
-  limit?: number = 20;
+  limit?: number = 0;
 
   /**
    * page number for the get all requests

@@ -29,7 +29,7 @@ export class MailService {
   public async sendUserWelcome(user: User): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
-      from: `Ticket Hive - Onboarding Team  <${'team@ticket-hive.com'}>`,
+      from: `Ticket Hive - Onboarding Team  <${'favourejim56@gmail.com'}>`,
       subject: `🎉 Welcome to Ticket Hive – Your Gateway to Amazing Events!`,
       template: path.join(ROOT_PATH, '/src/mail/templates/welcome.ejs'),
       context: {
@@ -48,7 +48,7 @@ export class MailService {
   public async sendResetOtp(user: User, otp: string): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
-      from: `Ticket Hive - Support Team  <${'team@ticket-hive.com'}>`,
+      from: `Ticket Hive - Support Team  <${'favourejim56@gmail.com'}>`,
       subject: `🔐 Reset Your Password – Let's Get You Back on Track!`,
       template: path.join(ROOT_PATH, '/src/mail/templates/resetOtp.ejs'),
       context: {
@@ -66,7 +66,7 @@ export class MailService {
   public async sendSubscriberMail(subscriber: Subscriber): Promise<void> {
     await this.mailerService.sendMail({
       to: subscriber.email,
-      from: `Ticket Hive -Team  <${'team@ticket-hive.com'}>`,
+      from: `Ticket Hive -Team  <${'favourejim56@gmail.com'}>`,
       subject: `Welcome to Ticket Hive's Newsletter! 🎉`,
       template: path.join(ROOT_PATH, '/src/mail/templates/subscription.ejs'),
       context: {
@@ -91,7 +91,7 @@ export class MailService {
   ): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
-      from: `Ticket Hive -Team  <${'team@ticket-hive.com'}>`,
+      from: `Ticket Hive -Team <${'favourejim56@gmail.com'}>`,
       subject: `🎟️ Your Ticket Purchase Confirmation – Ticket Hive`,
       template: path.join(ROOT_PATH, '/src/mail/templates/ticketBought.ejs'),
       context: {
@@ -100,6 +100,25 @@ export class MailService {
         amount: modifyNum(String(totalAmount)),
         dateOfPurchase: new Date().toLocaleDateString(),
         ticketUrls: urls,
+        tickets: tickets,
+      },
+    });
+  }
+
+  public async sendCreatedEventMail(
+    user: Partial<User>,
+    eventName: string,
+    tickets: any,
+  ): Promise<void> {
+    await this.mailerService.sendMail({
+      to: user.email,
+      from: `Ticket Hive -Team <${'favourejim56@gmail.com'}>`,
+      subject: `🎟️ Your Event Creation Confirmation`,
+      template: path.join(ROOT_PATH, '/src/mail/templates/createEvent.ejs'),
+      context: {
+        firstName: user.firstName,
+        event: eventName,
+        dateOfPurchase: new Date().toLocaleDateString(),
         tickets: tickets,
       },
     });
