@@ -9,7 +9,6 @@ export class PaginationQueryDto {
    * limit for the number of items in the get all requests
    */
   @IsOptional()
-  @IsPositive()
   limit?: number = 0;
 
   /**
