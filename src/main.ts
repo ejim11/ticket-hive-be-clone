@@ -47,6 +47,7 @@ async function bootstrap() {
     )
     .setLicense('MIT License', 'https://opensource.org/licenses/MIT')
     .addServer('http://localhost:3001', 'Local Server')
+    .addServer('https://ticket-hive-be-clone.onrender.com', 'production server')
     .setVersion('1.0')
     .build();
 
