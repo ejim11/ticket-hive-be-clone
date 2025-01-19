@@ -2,7 +2,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { UsersService } from './providers/users.service';
 import { UsersController } from './users.controller';
 import { AuthModule } from 'src/auth/auth.module';
-import { CreaterUsersProviders } from './providers/creater-users.providers';
+import { CreateUsersProvider } from './providers/create-users.providers';
 import { User } from './user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FindOneUserByEmailProvider } from './providers/find-one-user-by-email.provider';
@@ -16,7 +16,7 @@ import { EventsModule } from 'src/events/events.module';
 @Module({
   providers: [
     UsersService,
-    CreaterUsersProviders,
+    CreateUsersProvider,
     FindOneUserByEmailProvider,
     StoreOtpAndExpireProvider,
     FindUserByResetOtpAndExpiryTimeProvider,
