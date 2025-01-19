@@ -16,7 +16,7 @@ import { MailService } from 'src/mail/providers/mail.service';
  * provider class for creating user
  */
 @Injectable()
-export class CreaterUsersProviders {
+export class CreateUsersProvider {
   /**
    * constructor
    * @param usersRepository
