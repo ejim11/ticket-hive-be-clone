@@ -1,4 +1,4 @@
-import { ROOT_PATH } from '@/config/paths.config';
+import { ROOT_PATH } from '../../config/paths.config';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
