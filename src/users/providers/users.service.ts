@@ -1,5 +1,5 @@
 import { Injectable, RequestTimeoutException } from '@nestjs/common';
-import { CreaterUsersProviders } from './creater-users.providers';
+import { CreateUsersProvider } from './create-users.providers';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
 import { StoreOtpAndExpireProvider } from './store-otp-and-expire.provider';
@@ -34,7 +34,7 @@ export class UsersService {
     /**
      * injecting the create user provider
      */
-    private readonly createUserProvider: CreaterUsersProviders,
+    private readonly createUserProvider: CreateUsersProvider,
 
     /**
      * Injecting the findOneUserByEmailProvider
