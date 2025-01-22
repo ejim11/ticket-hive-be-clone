@@ -44,8 +44,7 @@ const ENV = process.env.NODE_ENV;
         return {
           type: 'postgres',
           autoLoadEntities: configService.get('database.autoLoadEntities'),
-          // synchronize: configService.get('database.synchronize'),
-          synchronize: false,
+          synchronize: configService.get('database.synchronize'),
           port: +configService.get('database.port'),
           username: configService.get('database.user'),
           password: configService.get('database.password'),
