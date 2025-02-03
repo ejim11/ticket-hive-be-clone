@@ -78,7 +78,7 @@ export class UsersService {
    * @param createUserDto
    * @returns the create user
    */
-  public async create(createUserDto: CreateUserDto) {
+  public async createUser(createUserDto: CreateUserDto) {
     return await this.createUserProvider.createUser(createUserDto);
   }
 
