@@ -17,6 +17,33 @@ import { accountType } from '../enums/account-type.enum';
 describe('UsersService', () => {
   let service: UsersService;
 
+  // Assuming you have a User interface like this
+  interface User {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    role: Role;
+    accountType: accountType;
+    events: any[];
+    // ... other properties
+  }
+
+  // Mock the provider
+  const mockUser: User = {
+    id: 123,
+    email: 'test@example.com',
+    firstName: 'Ejim',
+    lastName: 'Favour',
+    password: 'jndomnfondo',
+    role: Role.EVENTPURCHASER,
+    accountType: accountType.TICKETPURCHASER,
+    events: [{ name: 'Biology' }],
+
+    // ... other required properties
+  };
+
   beforeEach(async () => {
     const mockCreateUserProvider: Partial<CreateUsersProvider> = {
       createUser: (createUserDto: CreateUserDto) =>
@@ -31,6 +58,11 @@ describe('UsersService', () => {
         }),
     };
 
+    const mockFindOneUserByEmailProvider: Partial<FindOneUserByEmailProvider> =
+      {
+        findOneByEmail: (email: string) => Promise.resolve(mockUser),
+      };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
@@ -40,7 +72,10 @@ describe('UsersService', () => {
         { provide: ChangeUserPasswordProvider, useValue: {} },
         { provide: FindUserByResetOtpAndExpiryTimeProvider, useValue: {} },
         { provide: StoreOtpAndExpireProvider, useValue: {} },
-        { provide: FindOneUserByEmailProvider, useValue: {} },
+        {
+          provide: FindOneUserByEmailProvider,
+          useValue: mockFindOneUserByEmailProvider,
+        },
         { provide: DataSource, useValue: {} },
         { provide: getRepositoryToken(User), useValue: {} },
       ],
@@ -55,11 +90,11 @@ describe('UsersService', () => {
 
   describe('createUser', () => {
     it('should be defined', () => {
-      expect(service.create).toBeDefined();
+      expect(service.createUser).toBeDefined();
     });
 
     it('should call createUser on CreateUserProvider ', async () => {
-      let user = await service.create({
+      const user = await service.createUser({
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@doe.com',
@@ -69,6 +104,18 @@ describe('UsersService', () => {
       });
 
       expect(user.firstName).toEqual('John');
+    });
+  });
+
+  describe('findUserByEmail', () => {
+    it('should be defined', () => {
+      expect(service.findOneByEmail).toBeDefined();
+    });
+
+    it('should find a user by email', async () => {
+      const user = await service.findOneByEmail('test@example.com');
+
+      expect(user.firstName).toEqual(mockUser.firstName);
     });
   });
 });
