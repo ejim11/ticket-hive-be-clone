@@ -66,7 +66,7 @@ export class PaystackService {
   ) {}
 
   /**
-   * function for getting the auth header
+   * @function for getting the auth header
    * @returns authorization header for paystack
    */
   private getAuthHeader() {
